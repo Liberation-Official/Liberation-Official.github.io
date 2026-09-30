@@ -8,6 +8,7 @@ Live at https://liberation-official.github.io/
 
 ## What's here
 - `index.html`: the page content.
+- `script.js`: the color swatches and the background fade.
 - `style.css`: all the styling (colors, background, glass panels).
 - `assets/`: the menu screenshots (menu.png, menu2.png), background.png and background2.png and the Padauk font used on the page.
 
