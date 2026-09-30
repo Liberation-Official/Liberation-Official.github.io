@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Liberation Client</title>
+<meta name="description" content="A Fabric client mod for Minecraft single player: auto mining, kill aura, ore ESP and mob hitboxes, with a menu you can restyle.">
+<style>
+@font-face { font-family: Padauk; src: url(assets/padauk_regular.ttf); font-weight: 400; }
+@font-face { font-family: Padauk; src: url(assets/padauk_bold.ttf); font-weight: 700; }
+:root {
+  --bg: #0b0f1f; --panel: #141936; --line: #262c55; --text: #eef0ff; --dim: #8a90b4;
+  --accent: #8b7cff; --accent-hi: #c2b9ff;
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); }
+body { margin: 0; color: var(--text); font: 400 18px/1.6 Padauk, system-ui, sans-serif; }
+main { max-width: 860px; margin: 0 auto; padding: 72px 24px 48px; }
+h1 { font-size: clamp(44px, 9vw, 84px); line-height: 1; margin: 0 0 16px; color: var(--accent-hi); transition: color .25s; }
+h2 { font-size: 26px; margin: 72px 0 16px; }
+p { margin: 0 0 16px; max-width: 62ch; }
+.lead { font-size: 22px; color: var(--text); }
+.dim { color: var(--dim); }
+a { color: var(--accent-hi); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent-hi); outline-offset: 3px; }
+.actions { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; margin: 32px 0 40px; }
+.btn { background: var(--accent); color: var(--bg); font-weight: 700; padding: 10px 22px; border-radius: 8px; text-decoration: none; transition: background .25s; }
+.btn:hover { background: var(--accent-hi); }
+.swatches { display: flex; gap: 10px; align-items: center; }
+.swatches span { margin-right: 6px; color: var(--dim); font-size: 16px; }
+.swatches button { width: 22px; height: 22px; border-radius: 50%; border: 0; padding: 0; cursor: pointer; background: var(--c); }
+.swatches button[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px #fff; }
+.shot { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); }
+.feat { list-style: none; margin: 0; padding: 0; }
+.feat li { display: grid; grid-template-columns: 150px 1fr; gap: 24px; padding: 18px 0; border-top: 1px solid var(--line); }
+.feat li:last-child { border-bottom: 1px solid var(--line); }
+.feat b { color: var(--accent-hi); transition: color .25s; }
+.feat span { color: var(--dim); }
+ol { padding-left: 24px; max-width: 62ch; } ol li { margin-bottom: 12px; }
+table { border-collapse: collapse; width: 100%; max-width: 520px; }
+th, td { text-align: left; padding: 10px 0; border-top: 1px solid var(--line); }
+th { font-weight: 400; color: var(--dim); }
+kbd { background: var(--panel); border: 1px solid var(--line); border-radius: 5px; padding: 1px 9px; font: inherit; }
+.note { border-left: 3px solid var(--accent); padding: 4px 0 4px 18px; margin-top: 72px; transition: border-color .25s; }
+footer { margin-top: 56px; color: var(--dim); font-size: 15px; }
+@media (max-width: 600px) { .feat li { grid-template-columns: 1fr; gap: 4px; } body { font-size: 17px; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Liberation</h1>
+  <p class="lead">A client mod for Minecraft single player. Mine ores, fight mobs and see through walls, all from one menu you can restyle.</p>
+  <p class="dim">Fabric, Minecraft 26.3. Made for playing with friends on your own worlds.</p>
+
+  <div class="actions">
+    <a class="btn" href="https://github.com/Liberation-Official/Liberation-Official.github.io/releases/latest">Download the mod</a>
+    <div class="swatches" id="swatches"><span>Try a color</span></div>
+  </div>
+
+  <img class="shot" src="assets/menu.png" alt="The Liberation menu open on the Settings tab, showing accent color and font options">
+
+  <h2>What it does</h2>
+  <ul class="feat">
+    <li><b>AutoMine</b><span>Walks to the ores you pick, aims like a person and mines them. Coal, iron, gold, redstone, lapis, diamond and emerald.</span></li>
+    <li><b>Kill</b><span>Attacks the mobs you choose in range, with a natural click rate and smooth aiming.</span></li>
+    <li><b>ESP</b><span>Outlines ores through walls so you can see where to dig.</span></li>
+    <li><b>Hitbox</b><span>Draws a box around every mob nearby, through walls.</span></li>
+    <li><b>Menu</b><span>Tabs for Combat and World, a live list of what is switched on, and a Settings tab for accent color and font.</span></li>
+  </ul>
+
+  <h2>Install it</h2>
+  <ol>
+    <li>Install <a href="https://fabricmc.net/use/installer/">Fabric Loader</a> for Minecraft 26.3.</li>
+    <li>Download <a href="https://modrinth.com/mod/fabric-api">Fabric API</a> and the Liberation jar from the button above.</li>
+    <li>Put both jars in your <kbd>mods</kbd> folder and start the game.</li>
+    <li>Open a single player world and press <kbd>`</kbd> to open the menu.</li>
+  </ol>
+
+  <h2>Keys</h2>
+  <table>
+    <tr><th>Open the menu</th><td><kbd>`</kbd></td></tr>
+    <tr><th>AutoMine</th><td><kbd>M</kbd></td></tr>
+    <tr><th>Kill</th><td><kbd>K</kbd></td></tr>
+    <tr><th>Hitbox</th><td><kbd>B</kbd></td></tr>
+    <tr><th>ESP</th><td><kbd>N</kbd></td></tr>
+  </table>
+  <p class="dim" style="margin-top:12px">Every key can be changed from the menu.</p>
+
+  <div class="note">
+    <p><b>Single player only.</b> Most multiplayer servers ban this kind of mod, so keep it to your own worlds.</p>
+  </div>
+
+  <footer>Liberation is not affiliated with Mojang or Microsoft.</footer>
+</main>
+<script>
+const colors = [["Violet","#8b7cff","#c2b9ff"],["Blue","#4c8dff","#a9c8ff"],["Cyan","#2fd3e6","#a2eef7"],["Green","#3ddc97","#a6f1cf"],
+  ["Pink","#ff6fb5","#ffb8da"],["Red","#ff5c7a","#ffa9b8"],["Orange","#ffa24c","#ffd0a0"],["Gold","#f2cb3d","#fbe79a"]];
+const box = document.getElementById("swatches");
+colors.forEach(([name, a, hi], i) => {
+  const b = document.createElement("button");
+  b.style.setProperty("--c", a); b.title = name; b.setAttribute("aria-label", name);
+  b.setAttribute("aria-pressed", i === 0);
+  b.onclick = () => {
+    document.documentElement.style.setProperty("--accent", a);
+    document.documentElement.style.setProperty("--accent-hi", hi);
+    box.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  };
+  box.appendChild(b);
+});
+</script>
+</body>
+</html>
