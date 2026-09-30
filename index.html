@@ -13,41 +13,80 @@
   --accent: #8b7cff; --accent-hi: #c2b9ff;
 }
 * { box-sizing: border-box; }
-html { background: var(--bg); }
-body { margin: 0; color: var(--text); font: 400 18px/1.6 Padauk, system-ui, sans-serif; }
-main { max-width: 860px; margin: 0 auto; padding: 72px 24px 48px; }
-h1 { font-size: clamp(44px, 9vw, 84px); line-height: 1; margin: 0 0 16px; color: var(--accent-hi); transition: color .25s; }
-h2 { font-size: 26px; margin: 72px 0 16px; }
+html { background: var(--bg); scroll-behavior: smooth; }
+body { margin: 0; color: var(--text); font: 400 18px/1.6 Padauk, system-ui, sans-serif; position: relative; min-height: 100vh; }
+
+/* Background: two photos that crossfade as you scroll, over a glow and block grid */
+.bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--bg); }
+.bg .photo { position: absolute; inset: 0; background: center / cover no-repeat; will-change: opacity; }
+.bg .p1 { background-image: url(assets/background.png); }
+.bg .p2 { background-image: url(assets/background2.png); opacity: 0; }
+.bg .glow { position: absolute; inset: 0;
+  background:
+    radial-gradient(60% 50% at 15% 10%, color-mix(in srgb, var(--accent) 38%, transparent), transparent 70%),
+    radial-gradient(50% 45% at 90% 35%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%),
+    radial-gradient(70% 50% at 50% 110%, color-mix(in srgb, var(--accent) 28%, transparent), transparent 70%);
+  transition: background .4s; }
+.bg .grid { position: absolute; inset: 0; opacity: .5;
+  background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(80% 70% at 50% 30%, #000, transparent);
+  mask-image: radial-gradient(80% 70% at 50% 30%, #000, transparent); }
+.bg .shade { position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(11,15,31,.3) 0%, rgba(11,15,31,.6) 50%, var(--bg) 100%); }
+
+nav { position: sticky; top: 12px; z-index: 5; max-width: 860px; margin: 16px auto 0; padding: 10px 14px 10px 20px;
+  display: flex; align-items: center; justify-content: space-between; border-radius: 999px;
+  background: rgba(20,25,54,.55); border: 1px solid rgba(255,255,255,.1);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+  -webkit-backdrop-filter: blur(22px) saturate(150%); backdrop-filter: blur(22px) saturate(150%); }
+nav b { font-size: 20px; letter-spacing: .02em; }
+nav .btn { padding: 6px 16px; font-size: 16px; }
+@media (max-width: 920px) { nav { margin-left: 16px; margin-right: 16px; } }
+
+main { max-width: 860px; margin: 0 auto; padding: 88px 24px 48px; }
+.glass { background: rgba(20,25,54,.55); border: 1px solid rgba(255,255,255,.1); border-radius: 18px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 10px 40px rgba(0,0,0,.25);
+  -webkit-backdrop-filter: blur(22px) saturate(150%); backdrop-filter: blur(22px) saturate(150%); }
+h1 { font-size: clamp(52px, 11vw, 104px); line-height: .95; margin: 0 0 20px; color: var(--accent-hi); transition: color .25s; text-shadow: 0 0 60px color-mix(in srgb, var(--accent) 45%, transparent); }
+h2 { font-size: 28px; margin: 80px 0 18px; }
 p { margin: 0 0 16px; max-width: 62ch; }
 .lead { font-size: 22px; color: var(--text); }
 .dim { color: var(--dim); }
 a { color: var(--accent-hi); }
 a:focus-visible, button:focus-visible { outline: 2px solid var(--accent-hi); outline-offset: 3px; }
 .actions { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; margin: 32px 0 40px; }
-.btn { background: var(--accent); color: var(--bg); font-weight: 700; padding: 10px 22px; border-radius: 8px; text-decoration: none; transition: background .25s; }
+.btn { background: var(--accent); color: var(--bg); font-weight: 700; padding: 12px 26px; border-radius: 999px; text-decoration: none; transition: background .25s, box-shadow .25s; box-shadow: 0 8px 30px color-mix(in srgb, var(--accent) 40%, transparent); }
 .btn:hover { background: var(--accent-hi); }
 .swatches { display: flex; gap: 10px; align-items: center; }
 .swatches span { margin-right: 6px; color: var(--dim); font-size: 16px; }
 .swatches button { width: 22px; height: 22px; border-radius: 50%; border: 0; padding: 0; cursor: pointer; background: var(--c); }
 .swatches button[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px #fff; }
-.shot { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); }
-.feat { list-style: none; margin: 0; padding: 0; }
-.feat li { display: grid; grid-template-columns: 150px 1fr; gap: 24px; padding: 18px 0; border-top: 1px solid var(--line); }
-.feat li:last-child { border-bottom: 1px solid var(--line); }
+.shots { display: grid; gap: 20px; }
+.shot { display: block; width: 100%; height: auto; border-radius: 16px; border: 1px solid rgba(255,255,255,.12); box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 120px color-mix(in srgb, var(--accent) 25%, transparent); }
+.feat { list-style: none; margin: 0; padding: 6px 26px; }
+.feat li { display: grid; grid-template-columns: 150px 1fr; gap: 24px; padding: 18px 0; border-top: 1px solid rgba(255,255,255,.08); }
+.feat li:first-child { border-top: 0; }
 .feat b { color: var(--accent-hi); transition: color .25s; }
 .feat span { color: var(--dim); }
 ol { padding-left: 24px; max-width: 62ch; } ol li { margin-bottom: 12px; }
-table { border-collapse: collapse; width: 100%; max-width: 520px; }
-th, td { text-align: left; padding: 10px 0; border-top: 1px solid var(--line); }
+table { border-collapse: collapse; width: 100%; }
+th, td { text-align: left; padding: 12px 0; border-top: 1px solid rgba(255,255,255,.08); }
+tr:first-child th, tr:first-child td { border-top: 0; }
+.pad { padding: 8px 26px; }
+.steps { padding: 26px 26px 14px 50px; max-width: none; }
 th { font-weight: 400; color: var(--dim); }
 kbd { background: var(--panel); border: 1px solid var(--line); border-radius: 5px; padding: 1px 9px; font: inherit; }
-.note { border-left: 3px solid var(--accent); padding: 4px 0 4px 18px; margin-top: 72px; transition: border-color .25s; }
-footer { margin-top: 56px; color: var(--dim); font-size: 15px; }
+.note { border-left: 3px solid var(--accent); padding: 12px 22px; margin-top: 80px; border-radius: 12px; transition: border-color .25s; }
+.note p { margin: 0; }
+footer { margin-top: 56px; text-align: center; color: var(--dim); font-size: 15px; }
 @media (max-width: 600px) { .feat li { grid-template-columns: 1fr; gap: 4px; } body { font-size: 17px; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
+<div class="bg" aria-hidden="true"><div class="photo p1"></div><div class="photo p2" id="p2"></div><div class="glow"></div><div class="grid"></div><div class="shade"></div></div>
+<nav><b>Liberation</b><a class="btn" href="https://github.com/Liberation-Official/Liberation-Official.github.io/releases/latest">Download</a></nav>
 <main>
   <h1>Liberation</h1>
   <p class="lead">A client mod for Minecraft single player. Mine ores, fight mobs and see through walls, all from one menu you can restyle.</p>
@@ -58,10 +97,13 @@ footer { margin-top: 56px; color: var(--dim); font-size: 15px; }
     <div class="swatches" id="swatches"><span>Try a color</span></div>
   </div>
 
-  <img class="shot" src="assets/menu.png" alt="The Liberation menu open on the Settings tab, showing accent color and font options">
+  <div class="shots">
+    <img class="shot" src="assets/menu.png" alt="The Liberation menu open on the Settings tab, showing accent color and font options">
+    <img class="shot" src="assets/menu2.png" alt="The Liberation menu on the World tab with AutoMine and ESP switched on">
+  </div>
 
   <h2>What it does</h2>
-  <ul class="feat">
+  <ul class="feat glass">
     <li><b>AutoMine</b><span>Walks to the ores you pick, aims like a person and mines them. Coal, iron, gold, redstone, lapis, diamond and emerald.</span></li>
     <li><b>Kill</b><span>Attacks the mobs you choose in range, with a natural click rate and smooth aiming.</span></li>
     <li><b>ESP</b><span>Outlines ores through walls so you can see where to dig.</span></li>
@@ -70,7 +112,7 @@ footer { margin-top: 56px; color: var(--dim); font-size: 15px; }
   </ul>
 
   <h2>Install it</h2>
-  <ol>
+  <ol class="glass steps">
     <li>Install <a href="https://fabricmc.net/use/installer/">Fabric Loader</a> for Minecraft 26.3.</li>
     <li>Download <a href="https://modrinth.com/mod/fabric-api">Fabric API</a> and the Liberation jar from the button above.</li>
     <li>Put both jars in your <kbd>mods</kbd> folder and start the game.</li>
@@ -78,16 +120,16 @@ footer { margin-top: 56px; color: var(--dim); font-size: 15px; }
   </ol>
 
   <h2>Keys</h2>
-  <table>
+  <div class="glass pad"><table>
     <tr><th>Open the menu</th><td><kbd>`</kbd></td></tr>
     <tr><th>AutoMine</th><td><kbd>M</kbd></td></tr>
     <tr><th>Kill</th><td><kbd>K</kbd></td></tr>
     <tr><th>Hitbox</th><td><kbd>B</kbd></td></tr>
     <tr><th>ESP</th><td><kbd>N</kbd></td></tr>
-  </table>
+  </table></div>
   <p class="dim" style="margin-top:12px">Every key can be changed from the menu.</p>
 
-  <div class="note">
+  <div class="note glass">
     <p><b>Single player only.</b> Most multiplayer servers ban this kind of mod, so keep it to your own worlds.</p>
   </div>
 
@@ -108,6 +150,13 @@ colors.forEach(([name, a, hi], i) => {
   };
   box.appendChild(b);
 });
+
+const p2 = document.getElementById("p2");
+function fade() {
+  const max = document.documentElement.scrollHeight - innerHeight;
+  p2.style.opacity = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
+}
+addEventListener("scroll", fade, { passive: true }); addEventListener("resize", fade); fade();
 </script>
 </body>
 </html>
