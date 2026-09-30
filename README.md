@@ -4,6 +4,8 @@ A client mod for Minecraft single player. Mine ores, fight mobs and see through 
 
 Fabric, Minecraft 26.3. Made for playing with friends on your own worlds.
 
+**Live website: [liberation-official.github.io](https://liberation-official.github.io)**
+
 ## Screenshots
 
 ![The Liberation menu open on the Settings tab, showing accent color and font options](assets/menu.png)
