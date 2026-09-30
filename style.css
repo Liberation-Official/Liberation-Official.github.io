@@ -263,6 +263,24 @@ button:focus-visible {
   background: var(--accent-hi);
 }
 
+.ver {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 1px 12px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--accent-hi);
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: color .25s, background .25s, border-color .25s;
+}
+
+.ver:hover {
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
 .swatches {
   display: flex;
   gap: 10px;

@@ -19,3 +19,20 @@ function fade() {
   p2.style.opacity = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
 }
 addEventListener("scroll", fade, { passive: true }); addEventListener("resize", fade); fade();
+
+// Show the latest release tag from GitHub. The text in index.html is the fallback.
+(async () => {
+  const el = document.getElementById("ver");
+  if (!el) return;
+  try {
+    let tag = sessionStorage.getItem("lib-ver");
+    if (!tag) {
+      const r = await fetch("https://api.github.com/repos/Liberation-Official/Liberation-Official.github.io/releases/latest");
+      if (!r.ok) throw new Error(r.status);
+      const d = await r.json();
+      tag = d.tag_name;
+      if (tag) sessionStorage.setItem("lib-ver", tag);
+    }
+    if (tag) el.textContent = tag;
+  } catch (e) { /* keep fallback */ }
+})();
