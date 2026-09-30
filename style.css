@@ -27,12 +27,12 @@ body { margin: 0; color: var(--text); font: 400 18px/1.6 Padauk, system-ui, sans
 .bg .shade { position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(11,15,31,.3) 0%, rgba(11,15,31,.6) 50%, var(--bg) 100%); }
 
-nav { position: sticky; top: 12px; z-index: 5; max-width: 860px; margin: 16px auto 0; padding: 10px 14px 10px 20px;
+nav { position: sticky; top: 12px; z-index: 5; max-width: 860px; margin: 16px auto 0; padding: 12px 16px 12px 24px;
   display: flex; align-items: center; justify-content: space-between; border-radius: 999px;
   background: rgba(20,25,54,.55); border: 1px solid rgba(255,255,255,.1);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
   -webkit-backdrop-filter: blur(22px) saturate(150%); backdrop-filter: blur(22px) saturate(150%); }
-nav b { font-size: 30px; line-height: 1; letter-spacing: .02em; }
+nav b { font-size: 40px; line-height: 1; letter-spacing: .02em; }
 nav .btn { padding: 6px 16px; font-size: 16px; }
 @media (max-width: 920px) { nav { margin-left: 16px; margin-right: 16px; } }
 
@@ -40,7 +40,7 @@ main { max-width: 860px; margin: 0 auto; padding: 88px 24px 48px; }
 .glass { background: rgba(20,25,54,.55); border: 1px solid rgba(255,255,255,.1); border-radius: 18px;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 10px 40px rgba(0,0,0,.25);
   -webkit-backdrop-filter: blur(22px) saturate(150%); backdrop-filter: blur(22px) saturate(150%); }
-h1 { font-size: clamp(52px, 11vw, 104px); line-height: .95; margin: 0 0 20px; color: var(--accent-hi); transition: color .25s; text-shadow: 0 0 60px color-mix(in srgb, var(--accent) 45%, transparent); }
+h1 { font-size: clamp(40px, 8vw, 72px); line-height: .95; margin: 0 0 20px; color: var(--accent-hi); transition: color .25s; text-shadow: 0 0 60px color-mix(in srgb, var(--accent) 45%, transparent); }
 h2 { font-size: 28px; margin: 80px 0 18px; }
 p { margin: 0 0 16px; max-width: 62ch; }
 .lead { font-size: 22px; color: var(--text); }
